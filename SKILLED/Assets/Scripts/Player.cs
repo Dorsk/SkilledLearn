@@ -10,6 +10,10 @@ public class Player : PhysicsObject
     public float jumpTakeOffSpeed = 800;
     public Text countText;
     public Text winText;
+    public Text timerText;
+
+    private float startTime;
+    private bool timer = true;
 
     private bool moveLeft = false;
     private bool moveRight = false;
@@ -29,20 +33,28 @@ public class Player : PhysicsObject
          
         //Initialize count to zero.
         count = 0;
+        // Init timer
+        startTime = Time.time;
 
         //Initialze winText to a blank string since we haven't won yet at beginning.
         winText.text = ""; 
         SetCountText();
 
     }
+     
+    private void finishTimer()
+    {
+        timerText.color = Color.red;
+        timer = false;
+    }
 
     protected override void ComputeVelocity()
     {
+        // MOUVEMENT
         Vector2 move = Vector2.zero;
 
         move.x = Input.GetAxis("Horizontal");
-
-
+         
         if (Input.GetButtonDown("Jump") && grounded)
         {
             velocity.y = jumpTakeOffSpeed;
@@ -68,6 +80,17 @@ public class Player : PhysicsObject
         }
          
         targetVelocity = move * maxSpeed;
+
+        // TIMER 
+        if (timer)
+        {
+            float t = Time.time;
+
+            string minutes = ((int)t / 60).ToString();
+            string seconds = (t % 60).ToString("f2");
+
+            timerText.text = minutes + " : " + seconds;
+        }
     }
 
     //OnTriggerEnter2D is called whenever this object overlaps with a trigger collider.
@@ -94,6 +117,7 @@ public class Player : PhysicsObject
         if (count >= 8)
         {
             winText.text = "You win!";
+            finishTimer();
         }
     }
 
