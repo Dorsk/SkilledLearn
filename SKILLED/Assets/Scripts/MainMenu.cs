@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class MainMenu : MonoBehaviour {
 
+    public Text winText;
 
     public void PlayGame()
     {
@@ -14,6 +16,7 @@ public class MainMenu : MonoBehaviour {
 
     public void MainHome()
     {
+        winText.text = "";
         SceneManager.LoadScene(0);
     }
 

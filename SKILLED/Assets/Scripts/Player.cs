@@ -13,7 +13,7 @@ public class Player : PhysicsObject
     public Text timerText;
 
     private float startTime;
-    private bool timer = true;
+    private bool timer = false;
 
     private bool moveLeft = false;
     private bool moveRight = false;
@@ -23,7 +23,14 @@ public class Player : PhysicsObject
 
     private int count;              //Integer to store the number of pickups collected so far.
 
-
+    void Start()
+    {
+        // Init timer
+        timer = true;
+        timerText.text = ""; 
+        startTime = Time.time;
+    }
+    
     // Use this for initialization
     void Awake()
     {
@@ -33,7 +40,10 @@ public class Player : PhysicsObject
          
         //Initialize count to zero.
         count = 0;
+
         // Init timer
+        timer = true;
+        timerText.text = ""; 
         startTime = Time.time;
 
         //Initialze winText to a blank string since we haven't won yet at beginning.
@@ -84,7 +94,7 @@ public class Player : PhysicsObject
         // TIMER 
         if (timer)
         {
-            float t = Time.time;
+            float t = Time.time - startTime;
 
             string minutes = ((int)t / 60).ToString();
             string seconds = (t % 60).ToString("f2");
