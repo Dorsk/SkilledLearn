@@ -14,7 +14,6 @@ public class Player : PhysicsObject
     private bool moveLeft = false;
     private bool moveRight = false;
 
-    private Rigidbody2D rb2d;
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
@@ -24,8 +23,6 @@ public class Player : PhysicsObject
     // Use this for initialization
     void Awake()
     {
-        //Get and store a reference to the Rigidbody2D component so that we can access it.
-        rb2d = GetComponent<Rigidbody2D>();
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -89,14 +86,12 @@ public class Player : PhysicsObject
     }
 
 
-    //This function updates the text displaying the number of objects we've collected and displays our victory message if we've collected all of them.
     void SetCountText()
     {
-        //Set the text property of our our countText object to "Count: " followed by the number stored in our count variable.
-        countText.text =  count.ToString() + " / 10";
-        Debug.Log(count.ToString() + " / 10");
-        //Check if we've collected all 12 pickups. If we have...
-        if (count >= 5)
+        
+        countText.text =  count.ToString() + " / 8";
+      
+        if (count >= 8)
         {
             winText.text = "You win!";
         }
