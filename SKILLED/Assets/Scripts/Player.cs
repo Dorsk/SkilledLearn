@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+
 
 public class Player : PhysicsObject
 {
@@ -11,9 +13,12 @@ public class Player : PhysicsObject
     public Text countText;
     public Text winText;
     public Text timerText;
+    public InputField inputName;
 
     private float startTime;
     private bool timer = false;
+    string minutes;
+    string seconds;
 
     private bool moveLeft = false;
     private bool moveRight = false;
@@ -96,8 +101,8 @@ public class Player : PhysicsObject
         {
             float t = Time.time - startTime;
 
-            string minutes = ((int)t / 60).ToString();
-            string seconds = (t % 60).ToString("f2");
+            minutes = ((int)t / 60).ToString();
+            seconds = (t % 60).ToString("f2");
 
             timerText.text = minutes + " : " + seconds;
         }
@@ -119,7 +124,7 @@ public class Player : PhysicsObject
     }
 
 
-    void SetCountText()
+    private void SetCountText()
     {
         
         countText.text =  count.ToString() + " / 8";
@@ -128,6 +133,7 @@ public class Player : PhysicsObject
         {
             winText.text = "You win!";
             finishTimer();
+            sendValues();
         }
     }
 
@@ -163,5 +169,19 @@ public class Player : PhysicsObject
 
         moveRight = false;
     }
-     
+
+    public void sendValues()
+    {
+        
+        if (inputName.text == null || inputName.text == "")
+        { 
+            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=Joueur1");
+            request.Send();
+        }
+        else
+        { 
+            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=" + inputName.text);
+            request.Send();
+        } 
+    }
 }
