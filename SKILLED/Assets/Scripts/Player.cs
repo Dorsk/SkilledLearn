@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
-
+using UnityEngine.SceneManagement;
 
 public class Player : PhysicsObject
 {
@@ -14,6 +14,8 @@ public class Player : PhysicsObject
     public Text winText;
     public Text timerText;
     public InputField inputName;
+
+    public Button nextButton;
 
     private float startTime;
     private bool timer = false;
@@ -28,13 +30,7 @@ public class Player : PhysicsObject
 
     private int count;              //Integer to store the number of pickups collected so far.
 
-    void Start()
-    {
-        // Init timer
-        timer = true;
-        timerText.text = ""; 
-        startTime = Time.time;
-    }
+     
     
     // Use this for initialization
     void Awake()
@@ -54,6 +50,9 @@ public class Player : PhysicsObject
         //Initialze winText to a blank string since we haven't won yet at beginning.
         winText.text = ""; 
         SetCountText();
+
+        // init next button
+        nextButton.gameObject.SetActive(false);
 
     }
      
@@ -129,11 +128,15 @@ public class Player : PhysicsObject
         
         countText.text =  count.ToString() + " / 8";
       
-        if (count >= 8)
+        if (count >= 1)
         {
             winText.text = "You win!";
             finishTimer();
             sendValues();
+
+            // init next button
+            nextButton.gameObject.SetActive(true);
+             
         }
     }
 
@@ -175,13 +178,18 @@ public class Player : PhysicsObject
         
         if (inputName.text == null || inputName.text == "")
         { 
-            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=Joueur1");
+            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=Joueur1&level=" + SceneManager.GetActiveScene().buildIndex);
             request.Send();
         }
         else
         { 
-            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=" + inputName.text);
+            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=" + inputName.text + "&level=" + SceneManager.GetActiveScene().buildIndex);
             request.Send();
         } 
+    }
+
+    public void nextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex +1);
     }
 }
