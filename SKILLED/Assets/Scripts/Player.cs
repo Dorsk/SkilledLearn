@@ -128,7 +128,7 @@ public class Player : PhysicsObject
         
         countText.text =  count.ToString() + " / 8";
       
-        if (count >= 1)
+        if (count >= 8)
         {
             winText.text = "You win!";
             finishTimer();
