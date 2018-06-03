@@ -178,12 +178,12 @@ public class Player : PhysicsObject
         
         if (inputName.text == null || inputName.text == "")
         { 
-            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=Joueur1&level=" + SceneManager.GetActiveScene().buildIndex);
+            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=Joueur1&level=" + (SceneManager.GetActiveScene().buildIndex - 2));
             request.Send();
         }
         else
         { 
-            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=" + inputName.text + "&level=" + SceneManager.GetActiveScene().buildIndex);
+            UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=" + inputName.text + "&level=" + (SceneManager.GetActiveScene().buildIndex - 2));
             request.Send();
         } 
     }

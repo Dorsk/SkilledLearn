@@ -4,6 +4,7 @@ C:/Users/DorsK/Documents/Games/Build-APK/skilled.apk
 SceneListBegin?
 Assets/Scenes 1/Home.unity
 Assets/Scenes 1/Settings.unity
+Assets/Scenes 1/ChooseLevel.unity
 Assets/Scenes 1/Game.unity
 Assets/Scenes 1/GameLevel2.unity
 Assets/Scenes 1/GameLevel3.unity

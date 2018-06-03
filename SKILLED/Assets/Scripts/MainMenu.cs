@@ -11,7 +11,17 @@ public class MainMenu : MonoBehaviour {
 
     public void PlayGame()
     {
+        SceneManager.LoadScene(3);
+    }
+
+    public void ChooseLevel()
+    {
         SceneManager.LoadScene(2);
+    }
+
+    public void Settings()
+    {
+        SceneManager.LoadScene(1);
     }
 
     public void MainHome()
@@ -35,4 +45,19 @@ public class MainMenu : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
+    public void Level1()
+    {
+        SceneManager.LoadScene(3);
+    }
+    public void Level2()
+    {
+        SceneManager.LoadScene(4);
+    }
+    public void Level3()
+    {
+        SceneManager.LoadScene(5);
+    }
+
 }
