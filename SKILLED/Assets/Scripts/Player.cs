@@ -119,9 +119,12 @@ public class Player : PhysicsObject
 
             //Update the currently displayed count by calling the SetCountText function.
             SetCountText();
-        }  
+        }
+        if (other.gameObject.CompareTag("wall"))
+        {
+            grounded = false;
+        }
     }
-
 
     private void SetCountText()
     {
