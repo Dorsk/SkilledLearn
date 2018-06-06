@@ -15,6 +15,8 @@ public class Player : PhysicsObject
     public Text timerText;
     public InputField inputName;
 
+     
+
     public Button nextButton;
 
     private float startTime;
@@ -53,6 +55,13 @@ public class Player : PhysicsObject
 
         // init next button
         nextButton.gameObject.SetActive(false);
+
+        string getName = PlayerPrefs.GetString("Stored Name", inputName.text);
+
+        if (getName != null)
+        {
+            inputName.text = getName; // show the current SavedNAME in the GUI.TextArea
+        }
 
     }
      
@@ -188,6 +197,8 @@ public class Player : PhysicsObject
         { 
             UnityWebRequest request = UnityWebRequest.Get("http://dorsk.fr/game/add.php?minutes=" + minutes + "&secondes=" + seconds + "&name=" + inputName.text + "&level=" + (SceneManager.GetActiveScene().buildIndex - 2));
             request.Send();
+
+            PlayerPrefs.SetString("Stored Name", inputName.text);
         } 
     }
 

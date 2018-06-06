@@ -1,6 +1,6 @@
-iOS
+Android
 PlayerPath?
-C:/Users/DorsK/Documents/Games/Skilled-ios
+C:/Users/DorsK/Documents/Games/Build-APK/skilled.apk
 SceneListBegin?
 Assets/Scenes 1/Home.unity
 Assets/Scenes 1/Settings.unity
