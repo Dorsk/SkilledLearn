@@ -26,8 +26,7 @@ public class Player : PhysicsObject
 
     private bool moveLeft = false;
     private bool moveRight = false;
-
-    private SpriteRenderer spriteRenderer;
+     
     private Animator animator;
 
     private int count;              //Integer to store the number of pickups collected so far.
@@ -37,8 +36,7 @@ public class Player : PhysicsObject
     // Use this for initialization
     void Awake()
     {
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
+         
         animator = GetComponent<Animator>();
          
         //Initialize count to zero.
@@ -77,31 +75,49 @@ public class Player : PhysicsObject
         Vector2 move = Vector2.zero;
 
         move.x = Input.GetAxis("Horizontal");
-         
-        if (Input.GetButtonDown("Jump") && grounded)
+
+        if (Input.GetKey(KeyCode.A))
         {
+            animator.Play("Rogue_run_01");
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            animator.Play("Rogue_run_01");
+        }
+        else if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.D) && !Input.GetButtonDown("Jump") && !moveLeft && !moveRight)
+        {
+            animator.Play("Rogue_idle_01");
+        }
+
+        if (Input.GetButtonDown("Jump") && grounded)
+        { 
+           
             velocity.y = jumpTakeOffSpeed;
         }
         else if (Input.GetButtonUp("Jump"))
         {
             if (velocity.y > 0)
-            {
+            {  
                 velocity.y = velocity.y * 0.5f;
             }
-        }
+        } 
 
-       
         if (moveLeft)
         { 
             move.x =  (float) -0.99;
             targetVelocity = move * maxSpeed;
+            Debug.Log("Rogue_run_01");
+            animator.Play("Rogue_run_01");
 
         } else if (moveRight)
         { 
             move.x = (float) 0.99;
             targetVelocity = move * maxSpeed;
+            Debug.Log("Rogue_run_01");
+            animator.Play("Rogue_run_01");
         }
-         
+        
+
         targetVelocity = move * maxSpeed;
 
         // TIMER 
